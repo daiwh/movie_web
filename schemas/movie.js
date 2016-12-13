@@ -29,6 +29,14 @@ MovieSchema.pre('save', function(next){
 	next()
 })
 
+MovieSchema.statics.findMovie = function(id, result){
+	this.find({_id: id}, result)
+}
+
+MovieSchema.statics.findMovies = function(result){
+	this.find({}, result)
+}
+/*
 MovieSchema.statics = {
 	fetch: function(cb){
 		console.log('findall')
@@ -38,5 +46,5 @@ MovieSchema.statics = {
 		return this.findOne({_id: id}).exec(cb)
 	}
 }
-
+*/
 module.exports = MovieSchema

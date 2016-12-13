@@ -10,17 +10,20 @@ block content
 						th 导演
 						th 国家
 						th 上映年份
-						th 产看
+						th 录入时间
+						th 查看
 						th 更新
 						th 删除
 				tbody
-					each item in moves
-					tr(class="item-id-#{item.id}")
-						td #{item.title}
-						td #{item.doctor}
-						td #{item.country}
-						td #{item.year}
-						td a(target="_blank", href="../movie/#item._id") 产看
-						td a(target="_blank", href="../movie/updata/#{item._id}") 修改
-						td button.btn-danger.del(type="button", data-id="#{item._id}") 删除
+					each item in movies
+						tr(class="item-id-#{item._id}")
+							td #{item.title}
+							td #{item.doctor}
+							td #{item.country}
+							td #{item.year}
+							td #{moment(item.meta.createAt).format('MM/DD/YYYY')}
+							td: a(target="_blank", href="../movie/#{item.id}") 查看
+							td: a(target="_blank", href="../admin/update/#{item.id}") 修改
+							td 
+								button.btn.btn-danger.del(type="button", data-id="#{item.id}") 删除
 

@@ -19,9 +19,7 @@ app.listen(port)
 console.log('server started on port' + port)
 
 app.get('/', function(req, res){
-	console.log('1')
-	Movie.fetch(function(err, movies){
-		console.log('回调返回')
+	Movie.findMovies(function(err, movies){
 		if(err)
 			console.log(err)
 		res.render('pages/index', {
@@ -32,12 +30,12 @@ app.get('/', function(req, res){
 })
 
 app.get('/movie/:id', function(req, res){
-	var id = req.parmes.id
+	var id = req.params.id
 
-	Movie.findById(id, function(err, movie){
+	Movie.findMovie(id, function(err, movie){
 		if(err)
 			console.log(err)
-		res.render('detail', {
+		res.render('pages/detail', {
 			title: '详情页' + movie.title,
 			movie: movie
 		})
@@ -61,10 +59,10 @@ app.get('/admin/movie', function(req, res){
 })
 
 app.get('/admin/update/:id', function(req, res){
-	var id = req.parmes.id
+	var id = req.params.id
 	if(id){
-		Movie.findById(id, function(err, movie){
-			res.render('admin', {
+		Movie.findMovie(id, function(err, movie){
+			res.render('pages/admin', {
 				title: '后台更新页面',
 				movie: movie
 			})
@@ -79,7 +77,7 @@ app.post('/admin/movie/new', function(req, res){
 	var _movie
 
 	if (id != undefined) {
-		Movie.findById(id, function(err, movie){
+		Movie.findMovie(id, function(err, movie){
 			if(err)
 				console.log(err)
 			_movie = _.extend(movie, movieObj)
@@ -110,7 +108,7 @@ app.post('/admin/movie/new', function(req, res){
 })
 
 app.get('/admin/list', function(req, res){
-	Movie.fetch(function(err, movies){
+	Movie.findMovies(function(err, movies){
 		if(err)
 			console.log(err)
 		res.render('pages/list', {
