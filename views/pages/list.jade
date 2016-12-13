@@ -9,7 +9,18 @@ block content
 						th 电影名
 						th 导演
 						th 国家
-						th 
-						th 电影名
-						th 电影名
-						th 电影名
+						th 上映年份
+						th 产看
+						th 更新
+						th 删除
+				tbody
+					each item in moves
+					tr(class="item-id-#{item.id}")
+						td #{item.title}
+						td #{item.doctor}
+						td #{item.country}
+						td #{item.year}
+						td a(target="_blank", href="../movie/#item._id") 产看
+						td a(target="_blank", href="../movie/updata/#{item._id}") 修改
+						td button.btn-danger.del(type="button", data-id="#{item._id}") 删除
+
