@@ -1,13 +1,13 @@
 var mongoose = require('mongoose')
+var bcrypt = require('bcrypt')
 
-var MoviesSchema = new mongoose.Schema({
-	doctor: String,
-	title: String,
-	language: String,
-	country: String,
-	summary: String,
-	flash: String,
-	year: Number,
+var SALT_WORK_FACTOR = 10
+var UserSchema = new mongoose.Schema({
+	name: {
+		unique: true,
+		type: String
+	},
+	password: String,
 	meta: {
 		createAt: {
 			type: Date,
@@ -20,26 +20,37 @@ var MoviesSchema = new mongoose.Schema({
 	}
 })
 
-MoviesSchema.pre('save', function(next){
+UserSchema.pre('save', function(next){
+	var user = this
 	if(this.isNew)
 		this.meta.createAt = this.meta.updateAt = Date.now()
 	else
 		this.meta.updateAt = Date.now()
+	bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+		if(err)
+			return next(err)
+		bcrypt.hash(user.password, salt, function(err, hash){
+			if(err)
+				return next(err)
+			user.password = hash
+		})
+
+	})
 
 	next()
 })
 
-MoviesSchema.statics.findMovie = function(id, result){
+UserSchema.statics.findMovie = function(id, result){
 	console.log('数据库查找' + id)
 	this.find({_id: id}, result)
 }
 
-MoviesSchema.statics.findMovies = function(result){
+UserSchema.statics.findUser = function(result){
 	console.log('数据库查找')
 	this.find({}, result)
 }
 /*
-MoviesSchema.statics = {
+UserSchema.statics = {
 	fetch: function(cb){
 		console.log('findall')
 		return this.find({}).sort('meta.updateAt').exec(cb)
@@ -49,4 +60,4 @@ MoviesSchema.statics = {
 	}
 }
 */
-module.exports = MoviesSchema
+module.exports = UserSchema

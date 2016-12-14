@@ -1,5 +1,54 @@
-.container
-	.row
-		.page-header
-			h1= title
-			small 重度科幻
+.navbar.navbar-inverse
+	b
+		a.navbar-brand(href="#")
+			p #{title}
+		ul.nav.navbar-nav(role="navigation")
+			li.dropdown
+				a.dropdown-toggle(data-toggle="dropdown", role="button")代文海
+				ul.dropdown-menu(aria-labelledby="drop1", role="menu")
+					li(role="presentation")
+						a(role="menuitem")呆呆
+					li(role="presentation")
+						a(role="menuitem")呆呆
+					li(role="presentation")
+						a(role="menuitem")呆呆
+
+.navbar.navbar-default.navbar-fixed-bottom
+	.container
+		.navbar-header
+			a.navbar-brand(href="/")重度科幻迷
+		p.navbar-text.navbar-right
+			a.navbar-link(href="#", data-toggle="modal", data-target="#signupModal")注册
+			span &nbsp;| &nbsp;
+			a.navbar-link(href="#", data-toggle="modal", data-target="#signinModal")登陆
+#signupModal.modal.fade
+	.modal-dialog
+		.modal-content
+			form(method="POST", action="/user/signup")
+				.modal-header 注册
+				.modal-body
+					.form-group
+						label(for="signupName") 用户名
+						input#signupPassword.form-control(name="user[password]", type="text")
+					.form-group
+						label(for="signupPassword") 密码
+						input#signupName.form-control(name="user[name]", type="password")
+				.modal-footer
+					button.btn.btn-default(type="button", data-dismiss="modal")关闭
+					button.btn.btn-success(type="submit")提交
+
+#signinModal.modal.fade
+	.modal-dialog
+		.modal-content
+			form(method="POST", action="/user/signin")
+				.modal-header 登陆
+				.modal-body
+					.form-groin
+						label(for="signinName") 用户名
+						input#signinPassword.form-control(name="user[name]", type="text")
+					.form-groin
+						label(for="signinPassword") 密码
+						input#signinName.form-control(name="user[password]", type="password")
+				.modal-footer
+					button.btn.btn-default(type="button", data-dismiss="modal")关闭
+					button.btn.btn-success(type="submit")提交
