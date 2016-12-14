@@ -1,0 +1,19 @@
+{
+  "name": "movie",
+  "version": "1.0.0",
+  "description": "movieapp",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daiwh/movie_web.git"
+  },
+  "author": "daiwenhai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daiwh/movie_web/issues"
+  },
+  "homepage": "https://github.com/daiwh/movie_web#readme"
+}
