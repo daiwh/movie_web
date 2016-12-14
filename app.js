@@ -13,7 +13,7 @@ app.locals.moment = require('moment')
 app.set('views', './views')
 app.set('view engine', 'jade')
 app.use(bodyParser())
-app.use(express.static(path.join(__dirname, 'bower_components')))
+app.use(express.static(path.join(__dirname, 'public')))
 app.listen(port)
 
 console.log('server started on port' + port)
@@ -116,4 +116,18 @@ app.get('/admin/list', function(req, res){
 			movies: movies
 		})
 	})
+})
+
+app.delete('/admin/list', function(req, res){
+	var id = req.query.id
+    console.log('删除' + id)
+	if(id){
+		Movie.remove({_id: id}, function(err, movie){
+			if(err)
+				console.log(err)
+			else{
+				res.json({"success": "1"})
+			}
+		})
+	}
 })

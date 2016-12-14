@@ -16,7 +16,7 @@ block content
 						th 删除
 				tbody
 					each item in movies
-						tr(class="item-id-#{item._id}")
+						tr(class="item-id-#{item.id}")
 							td #{item.title}
 							td #{item.doctor}
 							td #{item.country}
@@ -26,4 +26,5 @@ block content
 							td: a(target="_blank", href="../admin/update/#{item.id}") 修改
 							td 
 								button.btn.btn-danger.del(type="button", data-id="#{item.id}") 删除
+	script(src='/js/admin.js')
 
