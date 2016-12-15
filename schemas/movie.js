@@ -7,6 +7,7 @@ var MoviesSchema = new mongoose.Schema({
 	country: String,
 	summary: String,
 	flash: String,
+	poster: String,
 	year: Number,
 	meta: {
 		createAt: {
@@ -31,7 +32,7 @@ MoviesSchema.pre('save', function(next){
 
 MoviesSchema.statics.findMovie = function(id, result){
 	console.log('数据库查找' + id)
-	this.find({_id: id}, result)
+	this.findOne({_id: id}, result)
 }
 
 MoviesSchema.statics.findMovies = function(result){

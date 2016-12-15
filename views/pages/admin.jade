@@ -4,8 +4,9 @@ block content
 	.panel.panel-info
 		.panel-body
 			.container
-				.row
+				.row 
 					form.form-horizontal(method="post", action="/admin/movie/new")
+						input(type="text", name="movie[_id]", value="#{movie._id}")
 						.form-group
 							label.col-sm-2.control-label(for="inputTitle") 电影名字
 							.col-sm-10
@@ -34,7 +35,7 @@ block content
 						.form-group
 							label.col-sm-2.control-label(for="inputFlash") 片源地址
 							.col-sm-10
-								input#inputFlash.form-control(type="text", name="movie[title]", value="#{movie.title}")
+								input#inputFlash.form-control(type="text", name="movie[flash]", value="#{movie.flash}")
 
 						.form-group
 							label.col-sm-2.control-label(for="inputYear") 上演年代

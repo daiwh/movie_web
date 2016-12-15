@@ -31,12 +31,11 @@ app.get('/', function(req, res){
 
 app.get('/movie/:id', function(req, res){
 	var id = req.params.id
-
 	Movie.findMovie(id, function(err, movie){
 		if(err)
 			console.log(err)
 		res.render('pages/detail', {
-			title: '详情页' + movie.title,
+			title: '详情页' ,
 			movie: movie
 		})
 	})
@@ -84,7 +83,7 @@ app.post('/admin/movie/new', function(req, res){
 			_movie.save(function(err, movie){
 				if(err)
 					console.log(err)
-				res.redirect('/movie/ + movie._id')
+				res.redirect('/movie/' + movie._id)
 			})
 		})
 	}
