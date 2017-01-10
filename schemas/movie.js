@@ -31,12 +31,12 @@ MoviesSchema.pre('save', function(next){
 })
 
 MoviesSchema.statics.findMovie = function(id, result){
-	console.log('数据库查找' + id)
+	// console.log('数据库查找' + id)
 	this.findOne({_id: id}, result)
 }
 
 MoviesSchema.statics.findMovies = function(result){
-	console.log('数据库查找')
+	// console.log('数据库查找')
 	this.find({}, result)
 }
 /*

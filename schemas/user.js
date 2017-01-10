@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcrypt-nodejs')
 
 var SALT_WORK_FACTOR = 10
 var UserSchema = new mongoose.Schema({
@@ -26,38 +26,38 @@ UserSchema.pre('save', function(next){
 		this.meta.createAt = this.meta.updateAt = Date.now()
 	else
 		this.meta.updateAt = Date.now()
-	bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+	var hash = bcrypt.hashSync(this.password);
+	user.password = hash
+
+	/*bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){//加盐
 		if(err)
 			return next(err)
 		bcrypt.hash(user.password, salt, function(err, hash){
 			if(err)
 				return next(err)
 			user.password = hash
+			next()
 		})
-
-	})
-
+	})*/
 	next()
 })
 
-UserSchema.statics.findMovie = function(id, result){
-	console.log('数据库查找' + id)
-	this.find({_id: id}, result)
+UserSchema.methods = {
+	comparePassword: function (_password, cb) {
+    var hash = this.password;
+    var isMatch = bcrypt.compareSync(_password, hash);
+      cb(null, isMatch);
+    }
 }
 
-UserSchema.statics.findUser = function(result){
-	console.log('数据库查找')
+UserSchema.statics.findUser = function(name, result){
+	// console.log('数据库查找' + id)
+	this.find({name: name}, result)
+}
+
+UserSchema.statics.findUsers = function(result){
+	// console.log('数据库查找')
 	this.find({}, result)
 }
-/*
-UserSchema.statics = {
-	fetch: function(cb){
-		console.log('findall')
-		return this.find({}).sort('meta.updateAt').exec(cb)
-	},
-	fetch: function(id,cb){
-		return this.findOne({_id: id}).exec(cb)
-	}
-}
-*/
+
 module.exports = UserSchema
